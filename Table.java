@@ -147,6 +147,16 @@ public class Table
 
 
 
+
+
+
+
+
+
+
+
+
+
     /************************************************************************************
      * Project the tuples onto a lower dimension by keeping only the given attributes.
      * Check whether the original key is included in the projection.
@@ -165,7 +175,11 @@ public class Table
 
         List <Comparable []> rows = new ArrayList <> ();
 
-        System.out.println(newKey);
+        for (Comparable [] tup : tuples) {
+            out.print ("| ");
+            for (Comparable attributes : tup) out.printf ("%15s", attributes);
+            out.println (" |");
+        } // for
 
         //  T O   B E   I M P L E M E N T E D 
 
@@ -189,47 +203,6 @@ public class Table
 
         return new Table (name + count++, attribute, domain, key, rows);
     } // select
-
-    /************************************************************************************
-     * Union this table and table2.  Check that the two tables are compatible.
-     *
-     * #usage movie.union (show)
-     *
-     * @param table2  the rhs table in the union operation
-     * @return  a table representing the union
-     */
-    public Table union (Table table2)
-    {
-        out.println ("RA> " + name + ".union (" + table2.name + ")");
-        if (! compatible (table2)) return null;
-
-        List <Comparable []> rows = new ArrayList <> ();
-
-        //  T O   B E   I M P L E M E N T E D 
-
-        return new Table (name + count++, attribute, domain, key, rows);
-    } // union
-
-    /************************************************************************************
-     * Take the difference of this table and table2.  Check that the two tables are
-     * compatible.
-     *
-     * #usage movie.minus (show)
-     *
-     * @param table2  The rhs table in the minus operation
-     * @return  a table representing the difference
-     */
-    public Table minus (Table table2)
-    {
-        out.println ("RA> " + name + ".minus (" + table2.name + ")");
-        if (! compatible (table2)) return null;
-
-        List <Comparable []> rows = new ArrayList <> ();
-
-        //  T O   B E   I M P L E M E N T E D 
-
-        return new Table (name + count++, attribute, domain, key, rows);
-    } // minus
 
     /************************************************************************************
      * Join this table and table2 by performing an "equi-join".  Tuples from both tables
@@ -282,6 +255,30 @@ public class Table
                                           ArrayUtil.concat (domain, table2.domain), key, rows);
     } // join
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /************************************************************************************
      * Check the size of the tuple (number of elements in list) as well as the type of
      * each value to ensure it is from the right domain. 
@@ -296,6 +293,50 @@ public class Table
 
         return true;
     } // typeCheck
+
+    /************************************************************************************
+     * Union this table and table2.  Check that the two tables are compatible.
+     *
+     * #usage movie.union (show)
+     *
+     * @param table2  the rhs table in the union operation
+     * @return  a table representing the union
+     */
+    public Table union (Table table2)
+    {
+        out.println ("RA> " + name + ".union (" + table2.name + ")");
+        if (! compatible (table2)) return null;
+
+        List <Comparable []> rows = new ArrayList <> ();
+
+        //  T O   B E   I M P L E M E N T E D 
+
+        return new Table (name + count++, attribute, domain, key, rows);
+    } // union
+
+    /************************************************************************************
+     * Take the difference of this table and table2.  Check that the two tables are
+     * compatible.
+     *
+     * #usage movie.minus (show)
+     *
+     * @param table2  The rhs table in the minus operation
+     * @return  a table representing the difference
+     */
+    public Table minus (Table table2)
+    {
+        out.println ("RA> " + name + ".minus (" + table2.name + ")");
+        if (! compatible (table2)) return null;
+
+        List <Comparable []> rows = new ArrayList <> ();
+
+        //  T O   B E   I M P L E M E N T E D 
+
+        return new Table (name + count++, attribute, domain, key, rows);
+    } // minus
+
+
+
 
 
 
