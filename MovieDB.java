@@ -100,9 +100,9 @@ class MovieDB
         //--------------------- project: title year
 
         out.println ();
-        Table t_project = movie.project ("title year");
-/*        t_project.print ();
-
+        Table t_project = movie.project("title year");
+        t_project.print();
+/*
         //--------------------- select: equals, &&
 
         out.println ();

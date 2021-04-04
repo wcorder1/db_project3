@@ -165,12 +165,8 @@ public class Table
 
         List <Comparable []> rows = new ArrayList <> ();
 
-        System.out.println(rows);
-/*
-        for (int i = 0; i < attrs.length; i++) {
-            System.out.println(i);
-        }
-*/
+        System.out.println(newKey);
+
         //  T O   B E   I M P L E M E N T E D 
 
         return new Table (name + count++, attrs, colDomain, newKey, rows);
