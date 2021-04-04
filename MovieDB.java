@@ -56,7 +56,7 @@ class MovieDB
         cinema.insert (film2);
         cinema.insert (film3);
         cinema.insert (film4);
-        //cinema.print ();
+        cinema.print ();
 
         Comparable [] star0 = { "Carrie_Fisher", "Hollywood", 'F', "9/9/99" };
         Comparable [] star1 = { "Mark_Hamill", "Brentwood", 'M', "8/8/88" };
@@ -84,7 +84,7 @@ class MovieDB
         studio.insert (studio0);
         studio.insert (studio1);
         studio.insert (studio2);
-        studio.print ();
+        //studio.print ();
 
 /*
         movie.save ();

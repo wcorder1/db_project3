@@ -297,8 +297,18 @@ public class Table
         out.println ("RA> " + name + ".join (" + table2.name + ")");
 
         List <Comparable []> rows = new ArrayList <> ();
+        String [] uniqueAttr = new String [attribute.length + table2.attribute.length];
 
-        //  T O   B E   I M P L E M E N T E D 
+        for (int i = 0; i < attribute.length; i++) {
+            for (int j = 0; j < table2.attribute.length; j++) {
+
+                if (table2.attribute[j].equals(attribute[i])) {
+                    //System.out.println(table2.attribute[j]);
+                    table2.attribute = ArrayUtil.remove(table2.attribute, j);
+                }
+
+            }
+        }
 
         // FIX - eliminate duplicate columns
         return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
