@@ -84,7 +84,7 @@ class MovieDB
         studio.insert (studio0);
         studio.insert (studio1);
         studio.insert (studio2);
-        //studio.print ();
+        studio.print ();
 
 /*
         movie.save ();
@@ -104,12 +104,12 @@ class MovieDB
         t_project.print();
 
         //--------------------- select: equals, &&
-*/
+
         out.println ();
         Table t_select = movie.select (t -> t[movie.col("title")].equals ("Star_Wars") &&
                                             t[movie.col("year")].equals (1977));
         t_select.print ();
-/*
+
         //--------------------- select: <
 
         out.println ();
@@ -139,13 +139,13 @@ class MovieDB
         out.println ();
         Table t_join = movie.join ("studioName", "name", studio);
         t_join.print ();
-
+*/
         //--------------------- natural join: movie JOIN studio
 
         out.println ();
         Table t_join2 = movie.join (cinema);
         t_join2.print ();
-*/
+
     } // main
 
 } // MovieDB class

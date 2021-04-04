@@ -190,52 +190,12 @@ public class Table
         return new Table (name + count++, attrs, colDomain, newKey, rows);
     } // project
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /************************************************************************************
-     * Select the tuples satisfying the given key predicate (key = value).  Use an index
-     * (Map) to retrieve the tuple with the given key value.
-     *
-     * @param keyVal  the given key value
-     * @return  a table with the tuple satisfying the key predicate
-     */
-    public Table select (KeyType keyVal)
-    {
-        out.println ("RA> " + name + ".select (" + keyVal + ")");
-
-        List <Comparable []> rows = new ArrayList <> ();
-
-        //  T O   B E   I M P L E M E N T E D 
-
-        return new Table (name + count++, attribute, domain, key, rows);
-    } // select
-
     /************************************************************************************
      * Join this table and table2 by performing an "equi-join".  Tuples from both tables
      * are compared requiring attributes1 to equal attributes2.  Disambiguate attribute
      * names by append "2" to the end of any duplicate attribute name.
      *
-     * #usage movie.join ("studioNo", "name", studio)
+     * #usage movie.join ("studioName", "name", studio)
      *
      * @param attribute1  the attributes of this table to be compared (Foreign Key)
      * @param attribute2  the attributes of table2 to be compared (Primary Key)
@@ -252,11 +212,75 @@ public class Table
 
         List <Comparable []> rows = new ArrayList <> ();
 
-        //  T O   B E   I M P L E M E N T E D 
+        int [] colComp = new int [2];
+
+        for (int i = 0; i < attribute.length; i++) {
+            for (int j = 0; j < t_attrs.length; j++) {
+                if (attribute[i].equals(t_attrs[j])) {
+                    colComp[0] = i;
+                }
+            }
+        }
+
+        for (int i = 0; i < table2.attribute.length; i++) {
+            for (int j = 0; j < u_attrs.length; j++) {
+                if (table2.attribute[i].equals(u_attrs[j])) {
+                    colComp[1] = i;
+                }
+            }
+        }
+
+        for (int i = 0; i < tuples.size(); i++) {
+            for (int j = 0; j < table2.tuples.size(); j++) {
+                if (tuples.get(i)[colComp[0]].equals(table2.tuples.get(j)[colComp[1]])) {
+
+                    Comparable [] tempArray = new Comparable [attribute.length + table2.attribute.length];
+
+                    for (int k = 0; k < (attribute.length + table2.attribute.length); k++) {
+                        if (k < attribute.length) {
+                            tempArray[k] = tuples.get(i)[k];
+                        }
+                        else {
+                            tempArray[k] = table2.tuples.get(j)[k - attribute.length];
+                        }
+                    }
+                    rows.add(tempArray);
+                }
+            }
+        }
+
+        // appends a 2 if any of the attribute names are the same
+        for (int i = 0; i < table2.attribute.length; i++) {
+            for (int j = 0; j < attribute.length; j++) {
+                if (table2.attribute[i].equals(attribute[j])) {
+                    table2.attribute[i] = table2.attribute[i] + "2";
+                }
+            }
+        }
 
         return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
                                           ArrayUtil.concat (domain, table2.domain), key, rows);
     } // join
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /************************************************************************************
      * Join this table and table2 by performing an "natural join".  Tuples from both tables
@@ -280,6 +304,24 @@ public class Table
         return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
                                           ArrayUtil.concat (domain, table2.domain), key, rows);
     } // join
+
+    /************************************************************************************
+     * Select the tuples satisfying the given key predicate (key = value).  Use an index
+     * (Map) to retrieve the tuple with the given key value.
+     *
+     * @param keyVal  the given key value
+     * @return  a table with the tuple satisfying the key predicate
+     */
+    public Table select (KeyType keyVal)
+    {
+        out.println ("RA> " + name + ".select (" + keyVal + ")");
+
+        List <Comparable []> rows = new ArrayList <> ();
+
+        //  T O   B E   I M P L E M E N T E D 
+
+        return new Table (name + count++, attribute, domain, key, rows);
+    } // select
 
 
 
