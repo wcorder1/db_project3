@@ -98,18 +98,18 @@ class MovieDB
         movieStar.printIndex ();
 
         //--------------------- project: title year
-
+/*
         out.println ();
         Table t_project = movie.project("title year");
         t_project.print();
-/*
-        //--------------------- select: equals, &&
 
+        //--------------------- select: equals, &&
+*/
         out.println ();
         Table t_select = movie.select (t -> t[movie.col("title")].equals ("Star_Wars") &&
                                             t[movie.col("year")].equals (1977));
         t_select.print ();
-
+/*
         //--------------------- select: <
 
         out.println ();

@@ -140,23 +140,6 @@ public class Table
                                    .collect (Collectors.toList ()));
     } // select
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /************************************************************************************
      * Project the tuples onto a lower dimension by keeping only the given attributes.
      * Check whether the original key is included in the projection.
@@ -175,16 +158,59 @@ public class Table
 
         List <Comparable []> rows = new ArrayList <> ();
 
-        for (Comparable [] tup : tuples) {
-            out.print ("| ");
-            for (Comparable attributes : tup) out.printf ("%15s", attributes);
-            out.println (" |");
-        } // for
+        int [] colNum = new int[attrs.length];
 
-        //  T O   B E   I M P L E M E N T E D 
+        for (int i = 0; i < attribute.length; i++) {
+            for (int j = 0; j < attrs.length; j++) {
+                if (attribute[i].equals(attrs[j])) {
+                    colNum[j] = i;
+                }
+            }
+        }
+
+        for (int i = 0; i < tuples.size(); i++) {
+
+            Comparable [] currentElem = tuples.get(i);
+            Comparable [] tempArray = new Comparable [colNum.length];
+
+            for (int j = 0; j < colNum.length; j++) {
+                tempArray[j] = currentElem[colNum[j]];
+            }
+            rows.add(tempArray);
+        }
+
+        for (int i = 0; i < rows.size(); i++) {
+            for (int j = 0; j < rows.size(); j++) {
+                if ((Arrays.equals(rows.get(i), rows.get(j))) && (i != j)) {
+                    rows.remove(i);
+                }
+            }
+        }
 
         return new Table (name + count++, attrs, colDomain, newKey, rows);
     } // project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /************************************************************************************
      * Select the tuples satisfying the given key predicate (key = value).  Use an index
