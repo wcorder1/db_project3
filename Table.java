@@ -297,21 +297,44 @@ public class Table
         out.println ("RA> " + name + ".join (" + table2.name + ")");
 
         List <Comparable []> rows = new ArrayList <> ();
-        String [] uniqueAttr = new String [attribute.length + table2.attribute.length];
 
-        for (int i = 0; i < attribute.length; i++) {
-            for (int j = 0; j < table2.attribute.length; j++) {
+        String [] uniqueAttr = ArrayUtil.concat(attribute, table2.attribute);
+        uniqueAttr = new HashSet<String>(Arrays.asList(uniqueAttr)).toArray(new String[0]);
 
-                if (table2.attribute[j].equals(attribute[i])) {
-                    //System.out.println(table2.attribute[j]);
-                    table2.attribute = ArrayUtil.remove(table2.attribute, j);
+        int [] t1_col = new int [attribute.length];
+        int [] t2_col = new int [table2.attribute.length];
+        int counter = 0;
+
+        for (int i = 0; i < uniqueAttr.length; i++) {
+            for (int j = 0; j < attribute.length; j++) {
+                //Comparable [] tempArray = new Comparable [uniqueAttr.length];
+                if (uniqueAttr[i].equals(attribute[j])) {
+                    t1_col[counter] = j;
+                    counter++;
                 }
+            }
+        }
 
+        counter = 0;
+
+        for (int i = 0; i < uniqueAttr.length; i++) {
+            for (int j = 0; j < table2.attribute.length; j++) {
+                //Comparable [] tempArray = new Comparable [uniqueAttr.length];
+                if (uniqueAttr[i].equals(table2.attribute[j])) {
+                    t2_col[counter] = j;
+                    counter++;
+                }
+            }
+        }
+
+        for (int i = 0; i < tuples.size(); i++) {
+            for (int j = 0; j < t1_col.length; j++) {
+                System.out.println(tuples.get(i)[t1_col[j]]);
             }
         }
 
         // FIX - eliminate duplicate columns
-        return new Table (name + count++, ArrayUtil.concat (attribute, table2.attribute),
+        return new Table (name + count++, uniqueAttr,
                                           ArrayUtil.concat (domain, table2.domain), key, rows);
     } // join
 
